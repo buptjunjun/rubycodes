@@ -1,0 +1,2 @@
+D, [2015-03-21T23:19:18.596304 #76648] DEBUG -- :   [1m[36mUser Load (13.7ms)[0m  [1mSELECT `user`.* FROM `user` WHERE `user`.`id` = 1 LIMIT 1[0m
+D, [2015-07-07T10:57:52.925798 #2172] DEBUG -- :   [1m[36mQuestion Load (45.8ms)[0m  [1mSELECT `question`.* FROM `question` LIMIT 1[0m

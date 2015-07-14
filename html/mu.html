@@ -1,0 +1,82 @@
+﻿
+<!DOCTYPE html>
+<html>
+  <head>
+  	<title>弹幕</title>
+  	<meta charset="utf-8"/>
+    <meta http-equive="X-UA-Compatible" IE="10"/>
+	  <link rel="stylesheet" href="http://www.polyv.net/apidemo/danmu/TMCSS.css"/>
+
+    <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+    <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.2.min.js" type="text/javascript"></script>
+  </head>
+  <body>
+  	<div class="demo">
+
+    <!--空白点击层-->
+    <div class="mask">
+    </div>
+  	<!--播放器-->
+	
+  	<div class="player">
+
+        <script type="text/javascript" src="http://static.polyv.net/file/polyvplayer_v2.0.min.js"></script>
+        <div id="player"></div>
+        <script type="text/javascript">
+            var player = polyvObject('#player').videoPlayer({
+                "width": "680",
+                "height": "400",
+                "vid": "7d63e9a8067f4424947cad24d7195dc5_7"
+				//"vid": "e2e84a7383588b2fcb5f9453b12d26ce_e"
+            });
+        </script> 
+
+  	</div>
+
+  	<!--弹幕-->
+  	 <div class="TM">
+  	 		<form action="#" method="post" id="TM-form">  <!--#表示当前页面-->
+        		<span class="TM-btn">弹幕设置</span>
+        		<div class="TM-wrap">
+        			<span class="TM-wrapinner">|||</span>
+        		</div>
+        		<div class="TM-pop">
+        			<div class="TM-pop-cont">
+	        			<label for="fontSize">字号 :</label>
+	        			<select id="fontSize" name="fontSize">
+	        				<option value="16">16号</option>
+	        				<option value="18">18号</option>
+	        				<option value="24" selected="selected">24号</option>
+	        				<option value="36">36号</option>
+	        				<option value="48">48号</option>
+	        			</select><br/>
+	        			<label for="fontMode">状态 :</label>
+	        			<select id="fontMode" name="fontMode">
+	        				<option value="top">顶部</option>
+	        				<option value="bottom">底部</option>
+	        				<option value="roll" selected="selected">滚动</option>
+	        			</select><br/>
+	        			<label for="fontColor">颜色 :</label>
+	        			<select id="fontColor" name="fontColor">
+	        				<option value="0xFF0000">红色</option>
+	        				<option value="0x0000FF">蓝色</option>
+	        				<option value="0x00FF00">绿色</option>
+	        				<option value="0xFFFF00">黄色</option>
+	        				<option value="0xFFFFFF" selected="selected">白色</option>
+	        				<option value="0x000000">黑色</option>
+	        			</select>
+	        		</div>
+        		</div>
+        		<input type="text" placeholder="可以在这里输入弹幕哦！" id="msg" name="msg"/>
+        		<!--span class="TM-send" data-vid="<?php echo $vid;?>"-->
+        		<span class="TM-send" data-vid="7d63e9a8067f4424947cad24d7195dc5_7">
+        			发 送
+        		</span>
+        		<span class="TM-smile">
+        		</span>
+   	        </form>
+  	 </div>
+  	</div>
+    <script src="../../../../../../Users/Admin/Downloads/danmu%20(1)/danmu/mu.js" type="text/javascript"></script>
+  </body>
+</html>
