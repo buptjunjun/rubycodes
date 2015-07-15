@@ -1,4 +1,6 @@
 #encoding: UTF-8
+require 'fileutils'
+
 puts "hello from ruby11.rb"
 
 array = [1,2,3]
@@ -10,4 +12,7 @@ array.each do  |item|
     break;
   end
   puts item
-end
+end1423912380495
+
+
+FileUtils.cp("/tmp/.jpg","/User/junjun/documents/")

@@ -39,58 +39,8 @@ image_file_count = Attr.where("attr_name = 'image_file'").count
 puts image_file_count
 
 Attr.transaction do
-  Attr.where("attr_name = 'image_file' ").order("create_date desc").each_with_index do |attr,index|
-    sizeAttr = Attr.find_by_question_id_and_attr_name(attr.question_id,"image_size")
-
-      file_path = nil
-      size = -1
-      file_path = dir + attr.content
-      isvalid = false
-      if File.exist? file_path
-        begin
-          image = MiniMagick::Image.open(file_path)
-          isvalid = image.valid?
-          size = File.size(file_path)
-        rescue Exception => e
-          logger.error("#{index} - #{isvalid}  #{attr.question_id} #{file_path} #{sizeAttr.content} #{size} #{e.inspect}")
-        end
-      else
-        trycount = 0
-        file_path = host + attr.content
-        begin
-          trycount += 1 #重复3次
-          file_path = host + attr.content
-          image = MiniMagick::Image.open(file_path)
-          isvalid = image.valid?
-          size = image.size
-        rescue Exception => e
-          logger.error("#{index} - #{isvalid}  #{attr.question_id} #{file_path} #{sizeAttr.content} #{size} #{e.inspect}")
-
-          if trycount < 3
-            retry
-          end
-
-        end
-      end
-
-      if size > 0 and size != sizeAttr.content.to_i
-        old_size = sizeAttr.content
-        sizeAttr.content = size
-        sizeAttr.modified = 1
-
-        history = sizeAttr.change_history
-        if not sizeAttr.change_history
-          history = "null";
-        end
-
-        sizeAttr.change_history = history + "|系统在#{Time.new.strftime("%Y-%m-%d %H:%m:%S")}修改过(image_size不一样)"
-        sizeAttr.content = size;
-        #sizeAttr.save
-
-        puts "#{index} #{isvalid} #{attr.question_id} #{file_path} #{old_size} #{size}"
-        logger.info("#{index} #{isvalid} #{attr.question_id} #{file_path} #{old_size} #{size}")
-      end
-
+  Attr.where("attr_name = ? and change_history is not null" ,'word_audio_name').order("create_date desc").each_with_index do |attr,index|
+      sizeAttr = Attr.find_by_question_id_and_attr_name(attr.question_id,"image_size")
   end
 end
 
