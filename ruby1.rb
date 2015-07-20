@@ -798,12 +798,12 @@ $: <<"./"
 $:.each {|x| puts x}
 
 #下面自能打印一个 hello from ruby11.rb 尽管require两次
-require "ruby11"
-require "ruby11"
-puts "require end"
-#load 每一次载入都重新处理
-load "./ruby11.rb"
-load "ruby11.rb"
+# require "ruby11"
+# require "ruby11"
+# puts "require end"
+# #load 每一次载入都重新处理
+# load "./ruby11.rb"
+# load "ruby11.rb"
 
 
 
@@ -999,3 +999,160 @@ puts false and true # 相当于 (puts false) and true
 puts (false and true) # 相当于 puts (false and true)
 puts  true && false # 相当于 puts (true && false)
 puts true & false # 相当于 puts (true & false)
+
+#retry 输出 012223
+[1,2,3,4].each_with_index do |item,index|
+  retrycount = 0
+  abc = 10
+  begin
+    abc+=1
+    print index
+    if index == 2
+      a = 1/0;
+    end
+  rescue
+    retrycount += 1
+    if retrycount < 3
+      retry #回到begin
+    end
+  end
+end
+
+
+puts %{
+java 和 ruby之间的区别
+ ruby使用require，java 使用 import,
+ ruby的成员变量都是private的，java有public protected private的区别
+ ruby中的一切都是对象，1，2.1这些都是对象。java 的false true 1，2不是对象，不够ruby彻底
+ ruby 没有静态类型检查
+ 没有显示的类型转换，只要调用方法。应该用单元测试
+ 构造器只是initialize 不是类的名字
+ 不使用接口，使用混入mixins(将一个module混入到另一类中).
+ nil代替null
+}
+
+puts "module 的两种作用"
+puts "module的两个功能，第一个是用为命名空间"
+module Trig
+  Pi = 3.14
+  def self.sin(x)
+    puts "trig  sin 3.14"
+  end
+end
+
+
+module Moral
+  VERY_BAD = 0
+  BAD = -1
+  def self.sin(x)
+    puts "moral sin x"
+  end
+end
+
+include Trig
+include Moral
+
+Trig.sin("123")
+Moral.sin(Moral::VERY_BAD)
+
+
+puts  %{module的两个功能，第二个是在不同的类中使用module中共享的功能，叫做混入mixins java使用继承或者组合的方式得到其他功能
+      Although every class is a module, the include method does not allow a class to be included within another class.}
+
+module D
+  def initialize(name)
+    @name = name
+  end
+
+  def to_s
+    @name
+  end
+end
+
+module Debug
+  include D
+
+  def who_am_i?
+    "#{self.class.name} {\##{self.object_id}}: #{self.to_s}"
+  end
+end
+
+class Phonograph
+  include Debug
+end
+
+class EightTrack
+  include Debug
+end
+
+ph = Phonograph.new("JUNJUN")
+et = EightTrack.new("LANLAN")
+
+puts ph.who_am_i?
+puts et.who_am_i?
+
+
+puts "可变对象(mutable object)和不可变对象(immutable object)"
+str = "A simple string"
+str.freeze
+begin
+  str << "An attempt to modify. " #修改一个可变对象
+rescue => e
+  puts  "#{e.class} #{e}"
+end
+
+puts "str is #{str.frozen?}" #str没有
+str += " modified"  # += 会返回一个新对象，并没有改变原来的对象，只是改变了str这个指向对象的指针
+puts str  #A simple string modified
+puts "str is #{str.frozen?}" #false str已经是另一个对象了，所以是mutable了
+
+
+puts 'ruby的方法,定义方法'
+def hello
+  'hello'
+end
+puts hello
+
+puts 'ruby的方法,使用方法的默认参数，但是只能从左向右指定,如果name1没有指定，name2使用不了默认值'
+def hello1 (name1="noname1",name2="noname2")
+  puts "hello #{name1} , #{name2}"
+end
+hello1("junjun") #hello junjun , noname2
+hello1(name2="xiaolan") #hello xiaolan , noname2
+
+
+puts "方法重命名"
+def oldmtd
+  "old method"
+end
+
+puts %"当一个方法重命名后 新名字会指向老方法的一个copy,当老方法重新定义后,不影响新方法
+ alias creates a new name that refers to an existing method, operator, global variable, or
+ regular expression backreference ($&, $`, $', and $+). Local variables, instance variables,
+ class variables, and constants may not be aliased. The parameters to alias may be names or symbols."
+
+alias newmtd oldmtd
+newmtd_again = oldmtd
+
+puts oldmtd #old method
+puts newmtd #old method
+
+#其实他们都是不同的对象了
+puts oldmtd.object_id #70133163120280
+puts newmtd.object_id #70133163120240
+
+def oldmtd
+  "old method improved"
+end
+
+puts oldmtd #old method improved
+puts newmtd #old method 改了oldmtd 不影响 newmtd
+
+#和alias效果一样
+puts oldmtd.object_id #70163953507420
+puts newmtd_again.object_id #70163953507620
+
+
+
+
+
