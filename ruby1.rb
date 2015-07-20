@@ -1152,7 +1152,24 @@ puts newmtd #old method 改了oldmtd 不影响 newmtd
 puts oldmtd.object_id #70163953507420
 puts newmtd_again.object_id #70163953507620
 
+puts "ruby方法传递多个参数"
+puts  %{What is the sequence in which the parameters are put on to the stack?
+        Left to right like C or right to left like Pascal?
+        The answer is Left to right as you can see in this example p012mtdstack.rb
+        参数放进栈的顺序是从左到又的}
 
+def foo(a1="11",*my_string,a2)
+  "a1 = #{a1} my_string = #{my_string.inspect} a2=#{a2}"
+end
 
+puts foo("hello","word","哈哈","a2")
+puts foo("hello1")
 
+puts "!方法 ?方法 带有?的方法叫做bang方法,表示这个方法很危险，他会直接修改一个变量指向的对象，也可以自己定义一个带!的方法，没有硬性要求
+      ?方法一般返回true或者false 表示询问，比如 array的empty?就好像在问array'你是空的码'"
 
+hello111 = "hello"
+puts hello111.upcase #HELLO
+puts hello111 #hello
+puts hello111.upcase! #HELLO 会改变hello111指向的对象
+puts hello111 #HELLO
