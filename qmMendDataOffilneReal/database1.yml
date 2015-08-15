@@ -1,0 +1,10 @@
+#适配器
+adapter:  mysql2
+host: localhost
+port: 3366
+
+#数据库
+database: qm20150503
+#用户名
+username: root
+password:

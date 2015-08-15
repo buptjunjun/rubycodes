@@ -1173,3 +1173,23 @@ puts hello111.upcase #HELLO
 puts hello111 #hello
 puts hello111.upcase! #HELLO 会改变hello111指向的对象
 puts hello111 #HELLO
+
+
+#返回多个值
+def abc
+  return 1,2,3
+end
+
+a,b = abc
+puts a
+puts b
+
+
+def isBlank?(str)
+  return str.nil? || str.empty? || 0 == (str =~ /^\s*$/)
+end
+
+puts isBlank?(nil)
+puts isBlank?("")
+puts isBlank?("  ")
+puts isBlank?(" aa ")

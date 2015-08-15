@@ -1,0 +1,1 @@
+puts Math.acos(1)

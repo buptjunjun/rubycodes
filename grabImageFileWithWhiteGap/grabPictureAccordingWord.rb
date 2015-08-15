@@ -8,9 +8,9 @@ require 'open-uri'
 #根据单词抓取它相应的图片.
 
 #数据库建立连接,datable.yml是配置文件
-dbconfig = YAML::load(File.open('grabImageFileWithWhiteGap/database1.yml'))
+dbconfig = YAML::load(File.open('database1.yml'))
 ActiveRecord::Base.establish_connection(dbconfig)
-logger = Logger.new("./grabImageFileWithWhiteGap/"+Time.new.strftime("%Y-%m-%d%H%m%S")+".log")
+logger = Logger.new(""+Time.new.strftime("%Y-%m-%d%H%m%S")+".log")
 logger.level = Logger::INFO
 
 class Question < ActiveRecord::Base
@@ -28,10 +28,10 @@ puts Question.count
 q1 = Question.find_by_word("actual")
 puts q1.inspect
 
-File.open('grabImageFileWithWhiteGap/whitegap.txt').each_line do |line|
+File.open('whitegap.txt').each_line do |line|
   #puts line
 
-  basedir = "grabImageFileWithWhiteGap/data/"
+  basedir = "data/"
   qs = Question.find_all_by_word(line.strip!)
   #puts qs
   if qs and qs.size > 0
@@ -57,8 +57,6 @@ File.open('grabImageFileWithWhiteGap/whitegap.txt').each_line do |line|
               puts " retry #{retrycount} download #{line} #{url} "+e.inspect
               retry
           end
-
-
         end
 
       end

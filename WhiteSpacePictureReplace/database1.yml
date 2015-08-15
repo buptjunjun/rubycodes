@@ -1,0 +1,12 @@
+#适配器
+adapter:  mysql2
+host: siskin
+port: 3366
+
+#数据库
+database: qm
+#用户名
+#username: junjun
+#password: 1234abcd1
+username: junjun
+password: 1234abcd1
