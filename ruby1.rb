@@ -1193,3 +1193,9 @@ puts isBlank?(nil)
 puts isBlank?("")
 puts isBlank?("  ")
 puts isBlank?(" aa ")
+
+
+#String#scan
+"123,123,234".scan(/\d+/) do |arg|
+  puts arg
+end
