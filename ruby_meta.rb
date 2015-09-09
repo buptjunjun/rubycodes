@@ -153,3 +153,20 @@ end
 
 TestModuleBoth.static_method
 TestModuleBoth.new.instance_method
+
+puts "respond_to? 和 method_missing"
+=begin
+  respond_to?查看一个对象是否能响应某个方法
+=end
+#给MyOpenstruct加上respond_to？方法，所有已有的属性都能响应
+class MyOpenstruct
+  def respond_to?(method)
+     attr = method.to_s
+     attr = method.chop if method =~ /$=/
+     @attribute[attr] != nil || super
+  end
+end
+mycar = MyOpenstruct.new
+mycar.width = 123
+puts mycar.respond_to?(:width)
+
